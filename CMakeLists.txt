@@ -10,7 +10,14 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #   配置头文件的搜索路径
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/include/server)
+include_directories(${PROJECT_SOURCE_DIR}/include/server/db)
 include_directories(${PROJECT_SOURCE_DIR}/include/client)
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
+
+include_directories(/usr/muduo-master)
+
+#   配置库文件搜索路径
+link_directories(/usr/build/release-install-cpp11/lib)
 
 #   加载子目录
 add_subdirectory(src)

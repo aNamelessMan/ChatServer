@@ -1,9 +1,10 @@
 #ifndef CHATSERVICE_H
 #define CHATSERVICE_H
 
+#include <muduo/net/TcpConnection.h>
 #include <unordered_map>
 #include <functional>
-#include <muduo/net/TcpConnection.h>
+#include "usermodel.hpp"
 #include "json.hpp"
 using namespace std;
 using namespace muduo;
@@ -24,6 +25,9 @@ private:
     ChatService();
     // 存储消息id和其对应的业务处理方法
     unordered_map<int, MsgHandler> _msgHandlerMap;
+
+    // 数据操作类对象
+    UserModel _userModel;
 };
 
 #endif

@@ -1,3 +1,4 @@
+//相当于xxserver    使用框架的功能
 #include "chatserver.hpp"
 #include "json.hpp"
 #include "chatservice.hpp"

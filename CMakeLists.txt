@@ -21,3 +21,5 @@ link_directories(/usr/build/release-install-cpp11/lib)
 
 #   加载子目录
 add_subdirectory(src)
+
+# 编译遇到未定义错误，可能是因为cmake未更新信息，删除build文件夹下文件，重进即可

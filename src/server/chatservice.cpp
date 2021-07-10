@@ -65,6 +65,15 @@ void ChatService::login(const TcpConnectionPtr &conn, json &js, Timestamp){
             response["errno"] = 0;
             response["id"] = user.getID();
             response["name"] = user.getName();
+
+            // 查询用户是否有离线消息
+            vector<string> vec = _offlineMsgModel.query(id);
+            if(!vec.empty()){
+                response["offlinemsg"] = vec;
+                // 读取该用户的离线消息后，把该用户的所有离线消息删除掉
+                _offlineMsgModel.remove(id);
+            }
+
             conn->send(response.dump());
         }
     }else{
@@ -135,6 +144,13 @@ void ChatService::oneChat(const TcpConnectionPtr &conn, json &js, Timestamp){
             return;
         }
         // toid不在线，存储离线消息
+        _offlineMsgModel.insert(toid, js.dump());
     }// 尽可能将 使用map的范围/锁的粒度 减小，使更多语句可以并行
     // 只要用到map就必须加锁！
+}
+
+// 服务器异常，业务重置方法
+void ChatService::reset(){
+    // 把online状态的用户设置为offline
+    _userModel.resetState();
 }

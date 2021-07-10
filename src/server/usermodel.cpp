@@ -43,6 +43,7 @@ User UserModel::query(int id){
     }
     return User();// id默认为-1表示出错
 }
+
 bool UserModel::updateState(User &user){
     // 组装sql语句
     char sql[1024] = {0};
@@ -55,4 +56,16 @@ bool UserModel::updateState(User &user){
         }
     }
     return false;
+}
+
+void UserModel::resetState(){
+    // 组装sql语句
+    char sql[1024] = {0};
+    
+    sprintf(sql, "update User set state = 'offline' where state = 'online'");
+    MySQL mysql;
+    if(mysql.connect()){
+        if(mysql.update(sql)){
+        }
+    }
 }

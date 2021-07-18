@@ -7,6 +7,7 @@
 #include <mutex>
 #include "usermodel.hpp"
 #include "offlinemessagemodel.hpp"
+#include "friendmodel.hpp"
 #include "json.hpp"
 using namespace std;
 using namespace muduo;
@@ -25,6 +26,7 @@ public:
     void oneChat(const TcpConnectionPtr &conn, json &js, Timestamp);
     MsgHandler getHandler(int msgid);
     void clientCloseException(const TcpConnectionPtr &conn);
+    void addFriend(const TcpConnectionPtr &conn, json &js, Timestamp time);
     void reset();
 private:
     ChatService();
@@ -39,8 +41,8 @@ private:
 
     // 数据操作类对象
     UserModel _userModel;
-
     OfflineMsgModel _offlineMsgModel;
+    FriendModel _friendModel;
 };
 
 #endif
